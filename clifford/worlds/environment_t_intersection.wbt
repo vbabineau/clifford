@@ -3,56 +3,64 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.5506651893849286 -0.7687427420257589 -0.3252728789530079 1.2622082199314582
-  position -0.8035013176204028 0.9278685698422584 0.5385909222979764
+  orientation -0.9987233072259476 0.03496959617095497 0.03645384681080151 1.530516745158513
+  position 0.4999999999999645 58.79546344095088 2.9447129181066525
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 Floor {
+  size 100 100
+  tileSize 10 10
   appearance Parquetry {
     type "dark strip"
     colorOverride 0.6 1 0.5
     IBLStrength 0
   }
 }
-CardboardBox {
-  translation 0 0.05 -0.28
-  size 0.1 0.1 0.1
+Crossroad {
+  translation -3.5 0.1 0
+  rotation 0 1 0 1.5707996938995747
+  shape [
+    7 0 0
+    0 0 7
+    7 0 7
+  ]
+  connectedRoadIDs [
+    "north"
+  ]
 }
-CardboardBox {
-  translation -0.12 0.05 -0.17
-  name "cardboard box(1)"
-  size 0.1 0.1 0.1
+Crossroad {
+  translation 3.5 0.1 -7
+  rotation 0 -1 0 1.5707996938995747
+  name "crossroad(1)"
+  shape [
+    7 0 0
+    0 0 7
+    7 0 7
+  ]
+  connectedRoadIDs [
+    "north"
+  ]
 }
-CardboardBox {
-  translation -0.15 0.05 -0.06
-  name "cardboard box(3)"
-  size 0.1 0.1 0.1
+StraightRoadSegment {
+  translation 0 0.01 0
+  name "northroad"
+  id "north"
+  length 20
 }
-CardboardBox {
-  translation -0.11 0.05 0.05
-  name "cardboard box(4)"
-  size 0.1 0.1 0.1
+StraightRoadSegment {
+  translation -3.5 0.01 -3.5
+  rotation 0 1 0 -1.5708003061004252
+  name "eastroad"
+  id "east"
+  length 20
 }
-CardboardBox {
-  translation 0.12 0.05 -0.21
-  name "cardboard box(2)"
-  size 0.1 0.1 0.1
-}
-E-puck {
-  hidden linearVelocity_0 4.6273099782658444e-07 1.4203640337958254e-10 1.1897519082519163e-08
-  hidden angularVelocity_0 -1.193327426457993e-06 2.679314856475012e-06 -2.985984189476956e-05
-  hidden translation_1 -0.026 0.02 0
-  hidden rotation_1 -0.9999999999999999 0 0 1.3939783811555795
-  hidden linearVelocity_1 6.121251954818901e-07 7.231664886473923e-07 1.1505277057400027e-07
-  hidden angularVelocity_1 -6.280001036669577 -1.3970839758358988e-05 -3.076858759502211e-05
-  hidden translation_2 0.02600000000000002 0.02 0
-  hidden rotation_2 -1 0 0 1.3939783787342739
-  hidden linearVelocity_2 6.120968507516247e-07 -7.215244034675827e-07 -1.0319453076606325e-07
-  hidden angularVelocity_2 -6.280001036162365 -1.3885201173481482e-05 -3.044473845289287e-05
-  translation 5.079836925395543e-06 -4.123984050141173e-05 -0.1932284048503116
-  rotation -0.9999998927376121 1.2777717588087684e-05 -0.0004629918944624552 -0.004103284741031099
-  controller "clifford_controller"
+StraightRoadSegment {
+  translation 3.5 0.01 -3.5
+  rotation 0 1 0 1.574
+  name "westroad"
+  id "west"
+  length 20
 }
