@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.9987233072259476 0.03496959617095497 0.03645384681080151 1.530516745158513
-  position 0.4999999999999645 58.79546344095088 2.9447129181066525
+  orientation 0.13911069208291132 -0.9547387519505957 -0.262910880094439 4.045437627178904
+  position 5.144585764677064 4.4300504847841236 -4.82271189207825
 }
 TexturedBackground {
 }
@@ -20,25 +20,25 @@ Floor {
   }
 }
 Crossroad {
-  translation -3.5 0.1 0
+  translation -0.5 0.01 0
   rotation 0 1 0 1.5707996938995747
   shape [
-    7 0 0
-    0 0 7
-    7 0 7
+    1 0 0
+    0 0 1
+    1 0 1
   ]
   connectedRoadIDs [
     "north"
   ]
 }
 Crossroad {
-  translation 3.5 0.1 -7
+  translation 0.5 0.011 -1
   rotation 0 -1 0 1.5707996938995747
   name "crossroad(1)"
   shape [
-    7 0 0
-    0 0 7
-    7 0 7
+    1 0 0
+    0 0 1
+    1 0 1
   ]
   connectedRoadIDs [
     "north"
@@ -48,19 +48,53 @@ StraightRoadSegment {
   translation 0 0.01 0
   name "northroad"
   id "north"
-  length 20
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
 }
 StraightRoadSegment {
-  translation -3.5 0.01 -3.5
+  translation 0.5 0.01 -0.5
+  rotation 0 1 0 1.5707996938995747
+  name "northroad(1)"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 3
+}
+StraightRoadSegment {
+  translation -0.5 0.01 -0.5
   rotation 0 1 0 -1.5708003061004252
-  name "eastroad"
-  id "east"
-  length 20
+  name "northroad(2)"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
 }
-StraightRoadSegment {
-  translation 3.5 0.01 -3.5
-  rotation 0 1 0 1.574
-  name "westroad"
-  id "west"
-  length 20
+TinkerbotsBase {
+  translation 0.290012 0.030473 2.46
+  rotation 6.09161989979151e-08 -0.9994984542589683 0.03166764806437048 3.740151502098013e-09
 }
