@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.13911069208291132 -0.9547387519505957 -0.262910880094439 4.045437627178904
-  position 5.144585764677064 4.4300504847841236 -4.82271189207825
+  orientation -1 0 0 1.5707996938995747
+  position 0 20 0
 }
 TexturedBackground {
 }
@@ -75,7 +75,7 @@ StraightRoadSegment {
   roadBorderHeight 0.01
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
-  length 3
+  length 5
 }
 StraightRoadSegment {
   translation -0.5 0.01 -0.5
@@ -93,8 +93,4 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
-}
-TinkerbotsBase {
-  translation 0.290012 0.030473 2.46
-  rotation 6.09161989979151e-08 -0.9994984542589683 0.03166764806437048 3.740151502098013e-09
 }
