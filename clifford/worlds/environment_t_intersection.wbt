@@ -1,0 +1,96 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -1 0 0 1.5707996938995747
+  position 0 20 0
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+  tileSize 10 10
+  appearance Parquetry {
+    type "dark strip"
+    colorOverride 0.6 1 0.5
+    IBLStrength 0
+  }
+}
+Crossroad {
+  translation -0.5 0.01 0
+  rotation 0 1 0 1.5707996938995747
+  shape [
+    1 0 0
+    0 0 1
+    1 0 1
+  ]
+  connectedRoadIDs [
+    "north"
+  ]
+}
+Crossroad {
+  translation 0.5 0.011 -1
+  rotation 0 -1 0 1.5707996938995747
+  name "crossroad(1)"
+  shape [
+    1 0 0
+    0 0 1
+    1 0 1
+  ]
+  connectedRoadIDs [
+    "north"
+  ]
+}
+StraightRoadSegment {
+  translation 0 0.01 0
+  name "northroad"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
+}
+StraightRoadSegment {
+  translation 0.5 0.01 -0.5
+  rotation 0 1 0 1.5707996938995747
+  name "northroad(1)"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
+}
+StraightRoadSegment {
+  translation -0.5 0.01 -0.5
+  rotation 0 1 0 -1.5708003061004252
+  name "northroad(2)"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
+}
