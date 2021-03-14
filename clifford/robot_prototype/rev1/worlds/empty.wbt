@@ -1,0 +1,58 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.03546810786585549 -0.9803532229989003 -0.19403497488876761 3.4962305881206746
+  position 0.002467488613809722 0.2153513950795465 -0.37460002324721464
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorAppearance Parquetry {
+    type "light strip"
+    textureTransform TextureTransform {
+    }
+  }
+}
+TinkerbotsBase {
+  translation -0.149641 0.0261901 0.0439269
+  rotation 6.71078529127965e-05 0.9999999968461659 4.2475925204703455e-05 -1.1276009226130452
+  controller "new"
+  controllerArgs [
+    ""
+  ]
+  selfCollision TRUE
+  upSlot DEF motor TinkerbotsMotor {
+    rotation 0 0 1 1.5707996938995747
+    name "B"
+    frontSlot TinkerbotsAxle {
+      endSlot TinkerbotsWheel {
+      }
+    }
+    backSlot TinkerbotsAxle {
+      endSlot TinkerbotsWheel {
+      }
+    }
+  }
+  downSlot TinkerbotsPivot {
+    rotation 0 0 1 1.5707996938995747
+    slot TinkerbotsMotor {
+      name "A"
+      leftSlot TinkerbotsDistanceSensor {
+        rotation 0 0 1 1.5707996938995747
+        name "dsname"
+      }
+      frontSlot TinkerbotsAxle {
+        endSlot TinkerbotsWheel {
+        }
+      }
+      backSlot TinkerbotsAxle {
+        endSlot TinkerbotsWheel {
+        }
+      }
+    }
+  }
+}
