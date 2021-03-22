@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.15151867470000038 -0.970591996772947 -0.18706487382044515 4.474081461411661
-  position 1.4242759349134098 0.48066096127530333 0.5886707505985703
+  orientation -0.11542558683077672 -0.9488341900362264 -0.2939228023190255 2.4282383096157854
+  position -1.1550355215689636 1.071838505736961 -0.9495491023262328
 }
 TexturedBackground {
 }
@@ -379,8 +379,8 @@ TinkerbotsBase {
   ]
 }
 DEF VEHICLE TinkerbotsBase {
-  translation 0.282911 0.0399997 0.7597
-  rotation -0.00031421693211235256 -0.9999997839466119 0.0005773858752537985 0.00239368
+  translation 0.297409 0.0258755 0.699798
+  rotation 0.044870991966163704 0.9616858278168998 0.27045695157658034 -0.002515307179586479
   name "W-21"
   controller "G-code"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
@@ -395,12 +395,12 @@ DEF VEHICLE TinkerbotsBase {
     }
   }
   downSlot TinkerbotsMotor {
-    rotation 0 0 1 -1.5707996938995747
+    rotation 0 0 1 1.5708003061004252
     name "A"
-    rightSlot TinkerbotsDistanceSensor {
-      rotation 0 0 1 -1.5707996938995747
+    leftSlot TinkerbotsDistanceSensor {
+      rotation 0 0 1 1.5707996938995747
     }
-    frontSlot TinkerbotsAxle {
+    backSlot TinkerbotsAxle {
       endSlot TinkerbotsWheel {
       }
     }
