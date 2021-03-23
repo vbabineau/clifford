@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.11542558683077672 -0.9488341900362264 -0.2939228023190255 2.4282383096157854
-  position -1.1550355215689636 1.071838505736961 -0.9495491023262328
+  orientation 0.6454089942811662 -0.7393669722213484 -0.1917907987605492 5.304885145608317
+  position 1.1272470053469217 1.0472693341212052 0.9391471680859989
 }
 TexturedBackground {
 }
@@ -30,6 +30,7 @@ Crossroad {
   connectedRoadIDs [
     "north"
   ]
+  boundingObject TRUE
 }
 Crossroad {
   translation 0.5 0.011 -1
@@ -43,6 +44,7 @@ Crossroad {
   connectedRoadIDs [
     "north"
   ]
+  boundingObject TRUE
 }
 StraightRoadSegment {
   translation 0 0.01 0
@@ -59,6 +61,7 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
+  roadBoundingObject TRUE
 }
 StraightRoadSegment {
   translation 0.5 0.01 -0.5
@@ -76,6 +79,7 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
+  roadBoundingObject TRUE
 }
 StraightRoadSegment {
   translation -0.5 0.01 -0.5
@@ -93,9 +97,10 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
+  roadBoundingObject TRUE
 }
 TinkerbotsBase {
-  translation 0.260359 0.0361879 0.99393
+  translation 0.260359 0.0361879 4.25393
   rotation -0.00015943098295562974 0.9999998930924962 -0.0004340469535971187 0
   controller "new"
   controllerArgs [
@@ -144,7 +149,7 @@ TinkerbotsBase {
   ]
 }
 TinkerbotsBase {
-  translation 0.402351 0.0462631 0.98858
+  translation 0.402175 0.0465264 4.20858
   rotation 2.0100199983194663e-08 0.9999999991639219 -4.0891999965811095e-05 3.14154
   name "Tinkerbots-Version1"
   controller "G-code"
@@ -189,7 +194,7 @@ TinkerbotsBase {
       ]
       endPoint Solid {
         translation 0.03 -1e-07 0.08
-        rotation 0 0 1 1.5708
+        rotation 0 7.48677051094009e-23 1 1.5707999999999998
         children [
           Solid {
             translation -1.86188e-13 -0.0100001 2.04023e-13
@@ -288,8 +293,8 @@ TinkerbotsBase {
         }
       ]
       endPoint Solid {
-        translation -0.030000100000000002 -5.71492e-08 0.08
-        rotation 0.7071052811843507 0.7071082811855436 1.6341806498410308e-07 3.14159
+        translation -0.030000099999999988 -5.714920000000001e-08 0.08
+        rotation 0.7071052811843507 0.7071082811855435 1.6341806498410308e-07 3.14159
         children [
           Solid {
             translation -1.86188e-13 -0.0100001 2.04023e-13
@@ -379,10 +384,10 @@ TinkerbotsBase {
   ]
 }
 DEF VEHICLE TinkerbotsBase {
-  translation 0.297409 0.0258755 0.699798
+  translation 0.297955 0.0258506 0.4698
   rotation 0.044870991966163704 0.9616858278168998 0.27045695157658034 -0.002515307179586479
   name "W-21"
-  controller "G-code"
+  controller "clifford_controller"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
       translation 0.01 0 0
