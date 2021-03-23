@@ -11,16 +11,16 @@ TIME_STEP = 64 #time in ms
 
 #Create Robot
 robot = Robot()
+
 leftMotor = robot.getDevice('A') #get motor pointers
+
 rightMotor = robot.getDevice('B')
-MAX_SPEED = rightMotor.getMaxVelocity() #get max speed
 
 gps = robot.getDevice('gps') # get gps
 gps.enable(TIME_STEP) # Enable gps
 
 comp = robot.getDevice('compass') #get compasss
 comp.enable(TIME_STEP)
-
 
 emitter= robot.getDevice('emitter')
 #This should be changed in terms of breaking time
@@ -29,11 +29,12 @@ emitter.setRange(MAX_SPEED*1000*TIME_STEP)
 
 
 #important variables
+MAX_SPEED = rightMotor.getMaxVelocity() #get max speed
 speed = MAX_SPEED*random.random() #Sets speed to a random fraction of the max
 dirVect = comp.getValues() #normalized direction vector
 coords = Point.from_list(gps.getValues())      #coordinates
 velocity = Vector(dirVect[0]*speed,dirVect[1]*speed,dirVect[2]*speed)        #Velocity vector
-destination =   
+destination = Point()
 #Initial Conditions?
 leftMotor.setPosition(float('inf'))#sets the servo? to infinity so it never stops
 rightMotor.setPosition(float('inf'))
