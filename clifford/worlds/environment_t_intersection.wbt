@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.11542558683077672 -0.9488341900362264 -0.2939228023190255 2.4282383096157854
-  position -1.1550355215689636 1.071838505736961 -0.9495491023262328
+  orientation -0.03901676662930482 0.9977056383260406 0.05532767096329101 1.915348140574589
+  position 0.6173959349118376 0.1585387750059732 0.5177845113419326
 }
 TexturedBackground {
 }
@@ -30,9 +30,10 @@ Crossroad {
   connectedRoadIDs [
     "north"
   ]
+  boundingObject TRUE
 }
 Crossroad {
-  translation 0.5 0.011 -1
+  translation 0.5 0.01 -1
   rotation 0 -1 0 1.5707996938995747
   name "crossroad(1)"
   shape [
@@ -43,6 +44,7 @@ Crossroad {
   connectedRoadIDs [
     "north"
   ]
+  boundingObject TRUE
 }
 StraightRoadSegment {
   translation 0 0.01 0
@@ -59,6 +61,7 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
+  roadBoundingObject TRUE
 }
 StraightRoadSegment {
   translation 0.5 0.01 -0.5
@@ -76,6 +79,7 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
+  roadBoundingObject TRUE
 }
 StraightRoadSegment {
   translation -0.5 0.01 -0.5
@@ -93,10 +97,13 @@ StraightRoadSegment {
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
   length 5
+  roadBoundingObject TRUE
 }
 TinkerbotsBase {
-  translation 0.260359 0.0361879 0.99393
-  rotation -0.00015943098295562974 0.9999998930924962 -0.0004340469535971187 0
+  hidden translation_7 -9.700283243319066e-11 0 0
+  hidden translation_20 -1.0660591164263555e-10 0 0
+  translation 0.2603590009358107 0.036184105184013896 0.9939278552874867
+  rotation -0.999999893454788 2.2568836149323152e-05 -0.0004610651366318899 8.171514366974128e-05
   controller "new"
   controllerArgs [
     ""
@@ -144,8 +151,8 @@ TinkerbotsBase {
   ]
 }
 TinkerbotsBase {
-  translation 0.402351 0.0462631 0.98858
-  rotation 2.0100199983194663e-08 0.9999999991639219 -4.0891999965811095e-05 3.14154
+  translation 0.40234797932777144 0.03619219612797976 0.9885753692934569
+  rotation -4.595995726033193e-06 0.999999990915306 -0.0001347154952521445 -3.1415260988746567
   name "Tinkerbots-Version1"
   controller "G-code"
   controllerArgs [
@@ -180,6 +187,7 @@ TinkerbotsBase {
   extensionSlot [
     DEF F-L HingeJoint {
       jointParameters HingeJointParameters {
+        position -5.338628963076783e-07
         anchor 0.03 -1e-07 0.08
       }
       device [
@@ -189,7 +197,7 @@ TinkerbotsBase {
       ]
       endPoint Solid {
         translation 0.03 -1e-07 0.08
-        rotation 0 0 1 1.5708
+        rotation -2.669304676616697e-07 2.669314481538265e-07 0.9999999999999288 1.570800000000071
         children [
           Solid {
             translation -1.86188e-13 -0.0100001 2.04023e-13
@@ -279,6 +287,7 @@ TinkerbotsBase {
     }
     DEF F-R HingeJoint {
       jointParameters HingeJointParameters {
+        position -2.2197139060220605e-07
         anchor 0.03 -1e-07 0.08
       }
       device [
@@ -288,8 +297,8 @@ TinkerbotsBase {
         }
       ]
       endPoint Solid {
-        translation -0.030000100000000002 -5.71492e-08 0.08
-        rotation 0.7071052811843507 0.7071082811855436 1.6341806498410308e-07 3.14159
+        translation -0.030000100000000876 -5.7149200000000425e-08 0.0799999999999905
+        rotation 0.7071052811842767 0.7071082811856314 8.493916074356592e-08 3.1415898430428575
         children [
           Solid {
             translation -1.86188e-13 -0.0100001 2.04023e-13
@@ -379,10 +388,10 @@ TinkerbotsBase {
   ]
 }
 DEF VEHICLE TinkerbotsBase {
-  translation 0.297409 0.0258755 0.699798
-  rotation 0.044870991966163704 0.9616858278168998 0.27045695157658034 -0.002515307179586479
+  translation 0.297389 0.0361751 0.699518
+  rotation 0.2233230642905533 0.9736811891286922 -0.045516490339366125 -0.002484933900504746
   name "W-21"
-  controller "G-code"
+  controller "clifford_controller"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
       translation 0.01 0 0
@@ -426,4 +435,45 @@ DEF VEHICLE TinkerbotsBase {
       }
     }
   }
+  extensionSlot [
+    Compass {
+      translation 0.02 0.04 -0.05
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Box {
+            size 0.005 0.005 0.015
+          }
+        }
+      ]
+    }
+    Emitter {
+      translation -3.67383e-18 0.08 -0.04
+      rotation 0 0 1 3.141592653589793
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.05
+          }
+        }
+      ]
+    }
+    GPS {
+      translation 0.025 0.026 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
 }
