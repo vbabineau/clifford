@@ -6,6 +6,7 @@ Viewpoint {
   orientation 0.04391508490426647 0.9958081917598749 0.08023409837331841 4.139651008043696
   position -1.6322606682601206 0.46428837645478416 -2.154568754252461
   follow "W-21"
+
 }
 TexturedBackground {
 }
@@ -25,6 +26,7 @@ Crossroad {
   ]
   boundingObject TRUE
   bottom TRUE
+
 }
 Crossroad {
   translation 0.5 0.01 -1
@@ -41,6 +43,7 @@ Crossroad {
   ]
   boundingObject TRUE
   bottom TRUE
+
 }
 StraightRoadSegment {
   translation 0 0.01 0
@@ -106,6 +109,7 @@ TinkerbotsBase {
   hidden position_15_0 8.986651925864225e-11
   translation 5.380357853948223 0.036184102594475284 -0.23606985610649092
   rotation -4.090424919147658e-05 0.9999999983283777 4.086669808438907e-05 1.5707999951845326
+
   controller "new"
   controllerArgs [
     ""
@@ -197,6 +201,7 @@ TinkerbotsBase {
     DEF F-L HingeJoint {
       jointParameters HingeJointParameters {
         position -1.4609822254498768e-06
+
         anchor 0.03 -1e-07 0.08
       }
       device [
@@ -207,6 +212,7 @@ TinkerbotsBase {
       endPoint Solid {
         translation 0.03 -1e-07 0.08
         rotation -7.304884294859242e-07 7.304911127246789e-07 0.9999999999994665 1.5708000000005318
+
         children [
           Solid {
             translation -1.86188e-13 -0.0100001 2.04023e-13
@@ -401,28 +407,9 @@ TinkerbotsBase {
   ]
 }
 DEF VEHICLE TinkerbotsBase {
-  hidden linearVelocity_0 -0.007910026793418175 -0.0003241881825297265 -0.578314372141593
-  hidden angularVelocity_0 0.01428031626061375 0.0060237955453559585 0.027477298517772118
-  hidden position_6_0 -616.0989310817516
-  hidden rotation_7 -0.9706676286084083 -0.170006091720971 -0.1700067161893616 1.6005667688607834
-  hidden linearVelocity_7 -0.007279017051112842 -0.0021315900054593396 -0.5778420908938757
-  hidden angularVelocity_7 -22.209375038598743 0.0471009515421206 0.29882383174983185
-  hidden position_10_0 621.8222109248883
-  hidden translation_15 -0.004230489897409679 0 0.00045254606789119425
-  hidden rotation_15 0 -1 0 6.070050821288808
-  hidden linearVelocity_15 -0.007814154250511792 -0.0002573817658502983 -0.5771375185343561
-  hidden angularVelocity_15 -21.984026223324793 0.04767037799798486 0.29778099862666724
-  hidden position_19_0 621.8226530231168
-  hidden translation_21 -0.004221847589509369 0 0.0004506776861458242
-  hidden rotation_21 0 -1 0 6.070492919517324
-  hidden linearVelocity_21 -0.00790021295670682 0.0004673047819757453 -0.5801063629753228
-  hidden angularVelocity_21 -21.984450854372287 0.04760940757275353 0.26071063799187993
-  hidden position_25_0 615.2448172587046
-  hidden rotation_26 -0.9388834211004392 -0.24341064717424035 -0.24341154127311393 1.6338221923285203
-  hidden linearVelocity_26 -0.007342643116981404 -6.235337490945592e-05 -0.5790249191446183
-  hidden angularVelocity_26 -22.084126842368885 0.04723844045442793 0.2794915045667852
-  translation 0.22681093500700694 0.03619283766093769 -0.540167252484915
-  rotation 0.06609853832956127 -0.9938928134082203 0.08836322021173679 -0.013230406338789325
+
+  translation 0.297389 0.0361751 0.699518
+  rotation 0.2233230642905533 0.9736811891286922 -0.045516490339366125 -0.002484933900504746
   name "W-21"
   controller "clifford_controller"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
@@ -469,6 +456,7 @@ DEF VEHICLE TinkerbotsBase {
     }
   }
   extensionSlot [
+
     Receiver {
       translation 0 0.11 -0.04
       children [
@@ -485,6 +473,7 @@ DEF VEHICLE TinkerbotsBase {
     Compass {
       translation 0.02 0.04 -0.05
       rotation 0 1 0 1.5707996938995747
+
       children [
         Shape {
           appearance PBRAppearance {

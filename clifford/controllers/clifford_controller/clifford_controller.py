@@ -4,6 +4,7 @@
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot,Motor
 from vectors import Point, Vector
+
 from path import createPath, updatePath
 import random
 import struct
@@ -11,10 +12,12 @@ import numpy as np
 
 TIME_STEP = 64 #time in ms
 
+
 #Create Robot
 robot = Robot()
 
 leftMotor = robot.getDevice('A') #get motor pointers
+
 
 rightMotor = robot.getDevice('B')
 
@@ -40,6 +43,7 @@ leftMotor.setPosition(float('inf'))#sets the servo? to infinity so it never stop
 rightMotor.setPosition(float('inf'))
 leftMotor.setVelocity(1* MAX_SPEED)
 rightMotor.setVelocity(1* MAX_SPEED)
+
 
 speed = MAX_SPEED*random.random() #Sets speed to a random fraction of the max
 dirVect = comp.getValues() #normalized direction vector
@@ -75,11 +79,14 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
     #emitter.send(message)
     #for right now we only send in the position and velocity
     
+
     #eventually we'd add the path
     # Process sensor data here.
 
     # Enter here functions to send actuator commands, like:
+
     ctr+=1
+
     pass
 
 # Enter here exit cleanup code.
