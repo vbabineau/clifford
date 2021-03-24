@@ -14,3 +14,8 @@
 * For coordination use some kind of high bandwidth wifi network between cars, that has reach beyond the maximum speed breaking distance.
 * Maybe add some kind of indication on robots when they're in a stack (light)
 * Work on turn handling
+
+# 2021-03-24  
+* Protocol for communicating information as strings, support for multiple cars may be tricky
+* Turn radius support
+*   
