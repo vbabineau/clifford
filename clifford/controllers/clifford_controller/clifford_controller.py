@@ -35,8 +35,8 @@ emitter.setRange(MAX_SPEED*1000*TIME_STEP)
 emitter.setChannel(1)
 
 #Start and end Points
-startPoints = [Point(0.25,0.036,4.9),Point(5.4,0.036,-.75),Point(-5.4,0.036,-.25)]
-endPoints = [Point(-0.25,0.036,4.9),Point(5.4,0.036,-.25),Point(-5.4,0.036,-.75)]
+startPoints = [Point(0.25,0.036,4.9),Point(5.4,0.036,-.75),Point(-5.4,0.036,-.75)]
+endPoints = [Point(-0.25,0.036,4.9),Point(5.4,0.036,-.25),Point(-5.4,0.036,-.25)]
 
 #Initial Conditions?
 leftMotor.setPosition(float('inf'))#sets the servo? to infinity so it never stops
@@ -49,7 +49,7 @@ speed = MAX_SPEED*random.random() #Sets speed to a random fraction of the max
 dirVect = comp.getValues() #normalized direction vector
 coords = Point.from_list(gps.getValues())      #coordinates
 velocity = Vector(dirVect[0]*speed,dirVect[1]*speed,dirVect[2]*speed)        #Velocity vector
-destination = endPoints[0] #random.randrange(0,2,1)
+destination = endPoints[1] #random.randrange(0,2,1)
 
 ctr = 0
 
@@ -61,24 +61,24 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
     dirList = np.round(comp.getValues(),2).tolist()
     dirVect = Vector.from_list(dirList)
     coords = Point.from_list(gps.getValues())
+    destination.y=coords.y
     velocity = Vector(dirList[0]*speed,dirList[1]*speed,dirList[2]*speed)
 
     if ctr == 0: # first iteration we create a path
         path = createPath(coords,destination, dirVect )
+        print(f"Going from {coords} cm to {destination}")
+        print(dirVect)
+        print('Original Path:')
+        for i,v in enumerate(path):
+            print('Vector',i+1,v)
+        print("----------------------")
     else:
         path = updatePath(coords,destination, dirVect,path)
     
-    pathCarAngle = path[0].angle(dirVect)%180
+    pathCarAngle = path[-1].angle(dirVect)%180
     if pathCarAngle>1:
-        print( pathCarAngle)
-        print(round( path[0].cross(dirVect).y,2))
-        ratio= .55*(1-pathCarAngle/90)
-        # if pathCarAngle>20:
-        #     ratio = 0
-        # elif pathCarAngle>2:
-        #     ratio = .1
-        # else:
-        #     rato =.52 
+        #print(round( path[0].cross(dirVect).y,2))
+        ratio= .55*(1-pathCarAngle/90) 
         if( path[0].cross(dirVect).y>0):
             rightMotor.setVelocity(MAX_SPEED)
             leftMotor.setVelocity((.35+ratio)* MAX_SPEED)
@@ -91,23 +91,14 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
      
     if ctr%16==0:
         dirVect = np.round(comp.getValues(),2).tolist()
-        print(dirVect)
+        print(f'Current dir: {round(pathCarAngle,2)} degrees, Updated Path:')
         for i,v in enumerate(path):
-            print('Vector',i+1,v)
             print('Vector',i+1,v)
         print("----------------------")
     # Read the sensors:
     #print(f"X:{round(x*100,1)} cm\nY:{round(y*100,1)} cm\nZ:{round(z*100,1)} cm")
     #message = struct.pack([coords,velocity])
     #emitter.send(message)
-    #for right now we only send in the position and velocity
-    
-
-    #eventually we'd add the path
-    # Process sensor data here.
-
-    # Enter here functions to send actuator commands, like:
-
     ctr+=1
 
     pass
