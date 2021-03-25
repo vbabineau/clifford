@@ -49,7 +49,7 @@ speed = MAX_SPEED*random.random() #Sets speed to a random fraction of the max
 dirVect = comp.getValues() #normalized direction vector
 coords = Point.from_list(gps.getValues())      #coordinates
 velocity = Vector(dirVect[0]*speed,dirVect[1]*speed,dirVect[2]*speed)        #Velocity vector
-destination = endPoints[2] #random.randrange(0,2,1)
+destination = endPoints[1] #random.randrange(0,2,1)
 
 ctr = 0
 
@@ -58,19 +58,42 @@ ctr = 0
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
     
-    dirVect = np.round(comp.getValues(),2).tolist()
+    dirList = np.round(comp.getValues(),2).tolist()
+    dirVect = Vector.from_list(dirList)
     coords = Point.from_list(gps.getValues())
-    velocity = Vector(dirVect[0]*speed,dirVect[1]*speed,dirVect[2]*speed)
+    velocity = Vector(dirList[0]*speed,dirList[1]*speed,dirList[2]*speed)
 
     if ctr == 0: # first iteration we create a path
-        path = createPath(coords,destination, Vector.from_list(dirVect) )
+        path = createPath(coords,destination, dirVect )
     else:
-        path = updatePath(coords,destination, Vector.from_list(dirVect),path)
-
+        path = updatePath(coords,destination, dirVect,path)
+    
+    pathCarAngle = path[0].angle(dirVect)%180
+    if pathCarAngle>1:
+        print( pathCarAngle)
+        #print(round( path[0].cross(dirVect).y,2))
+        ratio= .55*(1-pathCarAngle/90)
+        # if pathCarAngle>20:
+        #     ratio = 0
+        # elif pathCarAngle>2:
+        #     ratio = .1
+        # else:
+        #     rato =.52 
+        if( path[0].cross(dirVect).y>0):
+            rightMotor.setVelocity(MAX_SPEED)
+            leftMotor.setVelocity((.35+ratio)* MAX_SPEED)
+        else:
+            rightMotor.setVelocity((.35+ratio)* MAX_SPEED)
+            leftMotor.setVelocity(MAX_SPEED)
+    else:
+        rightMotor.setVelocity(MAX_SPEED)
+        leftMotor.setVelocity(MAX_SPEED)
+     
     if ctr%16==0:
         dirVect = np.round(comp.getValues(),2).tolist()
         print(dirVect)
         for i,v in enumerate(path):
+            print('Vector',i+1,v)
             print('Vector',i+1,v)
         print("----------------------")
     # Read the sensors:

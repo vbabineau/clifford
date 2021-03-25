@@ -10,9 +10,13 @@ def createPath(startP,endP,dirVect):
 def updatePath(startP,endP,dirVect,path):
     birdsEyePath = Vector.from_points(startP,endP)
     for v in path:
+        if(len(path)==1):
+            print()
         path.remove(v)
-        newV = dirVect.multiply(birdsEyePath.dot(dirVect))
-        if round(newV.dot(dirVect),2)!=0:
+        mag=v.magnitude()
+        pathVect = v.multiply(1/mag)
+        newV = pathVect.multiply(birdsEyePath.dot(pathVect))
+        if round(newV.magnitude(),2)>1:
             path.insert(0,newV)
             break
     return path
@@ -21,4 +25,6 @@ if __name__ =="__main__":
     start = Point(0.25,0.036,4.9)
     end = Point(5.4,0.036,-.25)
 
-    print(createPath(start,end,Vector.from_list([0,0,1])))
+    path=createPath(start,end,Vector.from_list([0,0,1]))
+    for i in range(0,49):
+        print(updatePath(start.substract(Vector(0,0,i*.1)),end,Vector.from_list([0,0,1]),path))
