@@ -49,7 +49,7 @@ speed = MAX_SPEED*random.random() #Sets speed to a random fraction of the max
 dirVect = comp.getValues() #normalized direction vector
 coords = Point.from_list(gps.getValues())      #coordinates
 velocity = Vector(dirVect[0]*speed,dirVect[1]*speed,dirVect[2]*speed)        #Velocity vector
-destination = endPoints[1] #random.randrange(0,2,1)
+destination = endPoints[0] #random.randrange(0,2,1)
 
 ctr = 0
 
@@ -71,7 +71,7 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
     pathCarAngle = path[0].angle(dirVect)%180
     if pathCarAngle>1:
         print( pathCarAngle)
-        #print(round( path[0].cross(dirVect).y,2))
+        print(round( path[0].cross(dirVect).y,2))
         ratio= .55*(1-pathCarAngle/90)
         # if pathCarAngle>20:
         #     ratio = 0

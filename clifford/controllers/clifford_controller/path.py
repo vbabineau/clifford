@@ -15,7 +15,7 @@ def updatePath(startP,endP,dirVect,path):
         path.remove(v)
         mag=v.magnitude()
         pathVect = v.multiply(1/mag)
-        newV = pathVect.multiply(birdsEyePath.dot(pathVect))
+        newV = pathVect.multiply(abs(birdsEyePath.dot(pathVect)))
         if round(newV.magnitude(),2)>1:
             path.insert(0,newV)
             break
@@ -27,4 +27,7 @@ if __name__ =="__main__":
 
     path=createPath(start,end,Vector.from_list([0,0,1]))
     for i in range(0,49):
-        print(updatePath(start.substract(Vector(0,0,i*.1)),end,Vector.from_list([0,0,1]),path))
+        up=(updatePath(start.substract(Vector(0,0,i*.1)),end,Vector.from_list([0,0,1]),path))
+        for v in up:
+            print(v)
+        print("________________________________")
