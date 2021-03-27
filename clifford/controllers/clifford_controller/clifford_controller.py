@@ -17,10 +17,9 @@ TIME_STEP = 64 #time in ms
 robot = Robot()
 
 leftMotor = robot.getDevice('A') #get motor pointers
-
-
 rightMotor = robot.getDevice('B')
-
+pivot = robot.getDevice('pivot')
+pivot.setPosition(0)
 MAX_SPEED = rightMotor.getMaxVelocity() #get max speed
 
 gps = robot.getDevice('gps') # get gps
@@ -39,7 +38,7 @@ startPoints = [Point(0.25,0.036,4.9),Point(5.4,0.036,-.75),Point(-5.4,0.036,-.75
 endPoints = [Point(-0.25,0.036,4.9),Point(5.4,0.036,-.25),Point(-5.4,0.036,-.25)]
 
 #Initial Conditions?
-leftMotor.setPosition(float('inf'))#sets the servo? to infinity so it never stops
+leftMotor.setPosition(float('inf'))
 rightMotor.setPosition(float('inf'))
 leftMotor.setVelocity(1* MAX_SPEED)
 rightMotor.setVelocity(1* MAX_SPEED)
@@ -49,7 +48,7 @@ speed = MAX_SPEED*random.random() #Sets speed to a random fraction of the max
 dirVect = comp.getValues() #normalized direction vector
 coords = Point.from_list(gps.getValues())      #coordinates
 velocity = Vector(dirVect[0]*speed,dirVect[1]*speed,dirVect[2]*speed)        #Velocity vector
-destination = endPoints[1] #random.randrange(0,2,1)
+destination = endPoints[0]#[random.randrange(0,2,1)]
 
 ctr = 0
 
@@ -72,20 +71,29 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
         for i,v in enumerate(path):
             print('Vector',i+1,v)
         print("----------------------")
+        print(path[0])
     else:
         path = updatePath(coords,destination, dirVect,path)
     
-    pathCarAngle = path[-1].angle(dirVect)%180
-    if pathCarAngle>1:
+    try:
+        pathCarAngle = path[0].angle(dirVect)  % 180
+    except ValueError:
+        pathCarAngle = 0
+        pass
+
+    if pathCarAngle!=0:
         #print(round( path[0].cross(dirVect).y,2))
-        ratio= .55*(1-pathCarAngle/90) 
-        if( path[0].cross(dirVect).y>0):
+        ratio= (1-pathCarAngle/90) 
+        if( round(path[0].cross(dirVect).y,3)>0):
+            pivot.setPosition(0.25*(1-ratio)+.01)
             rightMotor.setVelocity(MAX_SPEED)
-            leftMotor.setVelocity((.35+ratio)* MAX_SPEED)
+            leftMotor.setVelocity((.75+.25*ratio)* MAX_SPEED)
         else:
-            rightMotor.setVelocity((.35+ratio)* MAX_SPEED)
+            pivot.setPosition(-(0.25*(1-ratio)+.01))
+            rightMotor.setVelocity((.75+.25*ratio)* MAX_SPEED)
             leftMotor.setVelocity(MAX_SPEED)
     else:
+        pivot.setPosition(0)
         rightMotor.setVelocity(MAX_SPEED)
         leftMotor.setVelocity(MAX_SPEED)
      

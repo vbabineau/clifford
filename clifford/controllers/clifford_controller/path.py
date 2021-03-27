@@ -25,7 +25,7 @@ def updatePath(startP,endP,dirVect,path):
             mag=v.magnitude()
             pathVect = v.multiply(1/mag)
             newV = pathVect.multiply(abs(birdsEyePath.dot(pathVect)))
-            if round(newV.magnitude(),2)>1:
+            if round(newV.magnitude(),2)>.90:
                 path.insert(0,newV)
                 break
     return path
