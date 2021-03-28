@@ -1,10 +1,16 @@
 from vectors import Point, Vector
+import struct
 
 def createPath(startP,endP,dirVect):
     path = []
     birdsEyePath = Vector.from_points(startP,endP)
+
     birdsEyePath.y = 0
-    if birdsEyePath.angle(dirVect)%180 == 0:
+
+    if birdsEyePath.magnitude()<1:
+        raise ValueError
+
+    elif birdsEyePath.angle(dirVect)%180 == 0:
         path.append(birdsEyePath)
     else:
         path.append(dirVect.multiply(birdsEyePath.dot(dirVect)))
@@ -30,11 +36,13 @@ def updatePath(startP,endP,dirVect,path):
                 break
     return path
 
+
 if __name__ =="__main__":
-    start = Point(-5.4, 0.1362, -0.25)  
+    start = Point(5.4, 0.1362, -0.75)  
     end = Point(5.4, 0.1362, -0.25)
 
     path=createPath(start,end,Vector.from_list([1,0,0]))
+    print(path)
     for i in range(0,108):
         start.x=start.x+.1*i
         up=(updatePath(start,end,Vector.from_list([1,-0.0,-0.0]),path))

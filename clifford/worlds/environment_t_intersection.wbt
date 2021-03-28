@@ -3,9 +3,10 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.9998147137281157 -0.013813990947625416 -0.013405665476394555 1.5409815473678055
-  position 0.09463141316001672 2.3554341954350915 4.334060699519945
-  follow "FiatPanda"
+  orientation 1 0 0 4.71238898038469
+  position 1.2286224677193114 5.975662176777994 5.813450884873268
+  follow "babyPluto"
+  followType "None"
 }
 TexturedBackground {
 }
@@ -113,24 +114,9 @@ StraightRoadSegment {
   leftBarrierBoundingObject FALSE
 }
 DEF Pivot_Design TinkerbotsBase {
-  hidden position_6_0 2.7891156852569313e-07
-  hidden translation_7 -0.01 -0.01 0.015
-  hidden rotation_7 -0.9999999999999805 1.3945527201408712e-07 1.3945578426284474e-07 1.5708000000000195
-  hidden position_13_0 -3.2484460615929997e-07
-  hidden translation_14 -0.01 -0.01 0.015
-  hidden rotation_14 -0.9999999999999737 -1.6242170647031037e-07 -1.6242230307964715e-07 1.5708000000000262
-  hidden position_17_0 1.3509171336324044e-12
-  hidden translation_19 0 2.7018342672648078e-14 6.938893903907228e-18
-  hidden rotation_19 1 0 0 0
-  hidden position_25_0 -1.0651194294271834e-07
-  hidden translation_27 -2.1302388588543625e-09 0 1.1449174941446927e-16
-  hidden rotation_27 0 1 0 1.0745380149674385e-07
-  hidden position_31_0 -1.155616089124047e-07
-  hidden translation_33 -2.3112321782480884e-09 0 1.3530843112619095e-16
-  hidden rotation_33 0 0.9999999999999999 0 1.1542389828584842e-07
-  translation 5.1110040289321494 0.04115554961411555 -0.7505446650395751
-  rotation -8.46707187426085e-05 0.9999999860485657 0.00014399214514316418 1.5693395657541291
-  name "W-21"
+  translation -5.225359795817459 0.03913185487065075 -0.23583559065996373
+  rotation 7.826515076684666e-05 0.9999999960121904 4.30137871565339e-05 -1.5708112958616152
+  name "I3OT"
   controller ""
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
@@ -186,6 +172,8 @@ DEF Pivot_Design TinkerbotsBase {
     }
   }
   extensionSlot [
+    Accelerometer {
+    }
     GPS {
       translation 0.041 0.025 0
       children [
@@ -212,6 +200,8 @@ DEF Pivot_Design TinkerbotsBase {
           }
         }
       ]
+      range 2
+      channel 1
     }
     Compass {
       translation 0.06 0.04 -0.09
@@ -239,25 +229,13 @@ DEF Pivot_Design TinkerbotsBase {
           }
         }
       ]
+      channel 1
     }
   ]
 }
 DEF Pivot_Design TinkerbotsBase {
-  hidden position_6_0 -106.05405088405202
-  hidden rotation_7 0.8706680290248662 -0.34780475453123033 -0.347806032091776 4.574331455994727
-  hidden position_13_0 106.69742261364811
-  hidden rotation_14 0.9966033134674817 0.05823148063789582 0.05823169453446045 4.708982845397142
-  hidden position_17_0 9.921654016420423e-08
-  hidden translation_19 0 1.984330803717761e-09 1.1102230246251565e-16
-  hidden rotation_19 1 0 0 9.884312124119402e-08
-  hidden position_25_0 106.39924851994236
-  hidden translation_27 -0.008061999488700265 0 0.0016968810241479136
-  hidden rotation_27 0 -1 0 5.868283605068977
-  hidden position_31_0 106.42984935752914
-  hidden translation_33 -0.00749822174703802 0 0.0014587845427478478
-  hidden rotation_33 0 -1 0 5.898884442655753
-  translation 0.243854 0.0411534 4.54136
-  rotation 0 1 0 0
+  translation 5.255527382086195 0.04094647322213635 -0.7302629347376512
+  rotation 0 1 0 1.5707996938995747
   name "FiatPanda"
   controller "clifford_controller"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
@@ -314,6 +292,8 @@ DEF Pivot_Design TinkerbotsBase {
     }
   }
   extensionSlot [
+    Accelerometer {
+    }
     GPS {
       translation 0.041 0.025 0
       children [
@@ -340,10 +320,12 @@ DEF Pivot_Design TinkerbotsBase {
           }
         }
       ]
+      range 2
+      channel 1
     }
     Compass {
-      translation 0.05 0.03 -0.0999998
-      rotation 0 -1 0 1.5708
+      translation 0.04 0.03 -0.0999998
+      rotation 0 1 0 1.5707903061004251
       children [
         Shape {
           appearance PBRAppearance {
@@ -367,29 +349,18 @@ DEF Pivot_Design TinkerbotsBase {
           }
         }
       ]
+      channel 1
     }
   ]
 }
 DEF Pivot_Design TinkerbotsBase {
-  hidden position_6_0 3.295618283990227e-07
-  hidden translation_7 -0.01 -0.01 0.015
-  hidden rotation_7 -0.9999999999999729 1.6478030892652506e-07 1.647809141995084e-07 1.570800000000027
-  hidden position_13_0 -2.518976755618141e-07
-  hidden translation_14 -0.01 -0.01 0.015
-  hidden rotation_14 -0.9999999999999842 -1.2594837514584165e-07 -1.259488377809057e-07 1.5708000000000157
-  hidden position_17_0 -2.2011243296438246e-07
-  hidden translation_19 0 -4.402248659287612e-09 4.961309141293668e-16
-  hidden rotation_19 -0.9999999999999999 0 0 2.210199382035633e-07
-  hidden position_25_0 7.336208344445783e-11
-  hidden translation_27 1.4672416688891566e-12 0 0
-  hidden rotation_27 0 -1 0 0
-  hidden position_31_0 -1.1566457036593647e-07
-  hidden translation_33 -2.3132914073187237e-09 0 1.3530843112619095e-16
-  hidden rotation_33 0 1 0 1.1542389828584842e-07
-  translation -5.399306282863923 0.041155549612507315 -0.2500034306494652
-  rotation 0.00014378227770460686 0.9999999860891695 8.45477237041511e-05 -1.572255285568464
+  translation 0.2509398205617708 0.04001153406213075 4.865934641052576
+  rotation -0.9563388037691255 -0.09001159148868386 0.2780539620345523 0.00012655381585312855
   name "babyPluto"
-  controller ""
+  controller "clifford_controller"
+  controllerArgs [
+    ""
+  ]
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
       translation 0.01 0 0
@@ -444,6 +415,8 @@ DEF Pivot_Design TinkerbotsBase {
     }
   }
   extensionSlot [
+    Accelerometer {
+    }
     GPS {
       translation 0.041 0.025 0
       children [
@@ -470,10 +443,12 @@ DEF Pivot_Design TinkerbotsBase {
           }
         }
       ]
+      range 2
+      channel 1
     }
     Compass {
-      translation 0.06 0.04 -0.09
-      rotation 6.98158e-08 1 -4.3994e-07 1.5708
+      translation 0.04 0.04 -0.1
+      rotation 0 -1 0 1.5707996938995747
       children [
         Shape {
           appearance PBRAppearance {
@@ -497,6 +472,7 @@ DEF Pivot_Design TinkerbotsBase {
           }
         }
       ]
+      channel 1
     }
   ]
 }
