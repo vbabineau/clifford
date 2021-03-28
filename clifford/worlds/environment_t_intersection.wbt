@@ -4,9 +4,8 @@ WorldInfo {
 }
 Viewpoint {
   orientation 1 0 0 4.71238898038469
-  position 1.2286224677193114 5.975662176777994 5.813450884873268
+  position 1.2286224677193114 9.019031631939137 5.813450884873268
   follow "babyPluto"
-  followType "None"
 }
 TexturedBackground {
 }
@@ -117,7 +116,10 @@ DEF Pivot_Design TinkerbotsBase {
   translation -5.225359795817459 0.03913185487065075 -0.23583559065996373
   rotation 7.826515076684666e-05 0.9999999960121904 4.30137871565339e-05 -1.5708112958616152
   name "I3OT"
-  controller ""
+  controller "clifford_controller"
+  controllerArgs [
+    ""
+  ]
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
       translation 0.01 0 0

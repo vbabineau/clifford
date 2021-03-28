@@ -1,9 +1,8 @@
 """clifford_controller controller."""
-# You may need to import some classes of the controller module. Ex:
-#  from controller import Robot, Motor, DistanceSensor
 from controller import Robot,Motor
 from vectors import Point, Vector
 from path import createPath, updatePath
+from carQueue import *
 import random
 import struct
 import numpy as np
@@ -111,12 +110,12 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
         #print(round( path[0].cross(dirVect).y,2))
         ratio= (1-pathCarAngle/90) 
         if( round(path[0].cross(dirVect).y,3)>0):
-            pivot.setPosition(0.25*(1-ratio)+.01)
+            pivot.setPosition(0.34*(1-ratio)+.01)
             rightMotor.setVelocity(ANGULAR_VELOCIY)
-            leftMotor.setVelocity((.75+.25*ratio)* ANGULAR_VELOCIY)
+            leftMotor.setVelocity((.55+.45*ratio)* ANGULAR_VELOCIY)
         else:
-            pivot.setPosition(-(0.25*(1-ratio)+.01))
-            rightMotor.setVelocity((.75+.25*ratio)* ANGULAR_VELOCIY)
+            pivot.setPosition(-(0.34*(1-ratio)+.01))
+            rightMotor.setVelocity((.55+.45*ratio)* ANGULAR_VELOCIY)
             leftMotor.setVelocity(ANGULAR_VELOCIY)
     else:
         pivot.setPosition(0)
@@ -133,14 +132,18 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
     message = robot.getName()+':'
     message+= str(round(coords.x,4))+","+str(round(coords.y,4))+","+str(round(coords.x,4))+"_"
     message+= str(round(velocity.x,4))+","+str(round(velocity.y,4))+","+str(round(velocity.z,4))+"_"
-    message+= "_PathS"
     for v in path:
         message+=str(round(v.x,4))+','
         message+=str(round(v.y,4))+','
-        message+=str(round(v.z,4))+'_'
-    message+="PathE"
+        message+=str(round(v.z,4))
+        if v == path[-1]:
+            message+='_'
+        else:
+            message+='|'
+    queue = carQueue(message)
+
+
     message = bytes(message, 'utf-8')
-    #print((list(message)))
     message =  struct.pack("I%ds" % (len(message),), len(message), message)
     emitter.send(message)
 
@@ -153,11 +156,11 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
         # s, data = data[:i], data[i:]
         # transmissions.append(s)
     
-    print(robot.getName()+f" received  at ctr {ctr}: ")
+    #print(robot.getName()+f" received  at ctr {ctr}: ")
     for t in transmissions:
-        print(t)
+        queue.queueCar(t)
         transmissions.remove(t)
-    print("______________________"*5)
+    #print("______________________"*5)
         
 
 
