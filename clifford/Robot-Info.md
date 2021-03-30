@@ -2,7 +2,7 @@
 
 # Motor
 acceleration 10.0 rad/s^2 (0.265 m/s^2)
-maxVelocity 22 rad/s^2 (0.5775 m/s) 
+maxVelocity 22 rad/s (0.5775 m/s) 
 
 # Wheel
 radius 0.02625 m 
