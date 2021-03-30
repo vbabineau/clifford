@@ -1,9 +1,5 @@
 # clifford
-## Repo for team 3's  MCG4136 project:
-1. ### Transient Response Simulation in Matlab ./matlab
-2. ### WeBots T-Intersection project ./clifford
-3. ### Unknown ./
-
+## Repo for team 3's  MCG4136 WeBots T-Intersection project
 ## Clifford 2021-03-13  
 --- 
 - Project structure was established.
