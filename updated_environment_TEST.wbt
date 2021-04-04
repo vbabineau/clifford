@@ -1,0 +1,446 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.21622052777112635 0.9748467551969371 0.05406003378077467 5.7810606523463335
+  position -13.053764608728507 3.654022628283859 18.05316393745534
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Crossroad {
+  translation -0.5 0.01 0
+  rotation 0 1 0 1.5707996938995747
+  id "crossbot"
+  shape [
+    1 0 0
+    0 0 1
+    1 0 1
+  ]
+  connectedRoadIDs [
+    "north,crosstop,east"
+  ]
+}
+Crossroad {
+  translation 0.5 0.01 -1
+  rotation 0 -1 0 1.5707996938995747
+  name "crossroad1"
+  id "crosstop"
+  shape [
+    1 0 0
+    0 0 1
+    1 0 1
+  ]
+  connectedRoadIDs [
+    "north,crossbot,east"
+  ]
+}
+Solid {
+  translation 0 0.015 0
+  children [
+    Shape {
+      appearance MattePaint {
+        baseColor 0 0 0
+      }
+      geometry Plane {
+        size 100 100
+      }
+    }
+  ]
+  boundingObject Shape {
+    geometry Plane {
+      size 100 100
+    }
+  }
+}
+Forest {
+  translation 1.4 0 -14
+  rotation 0 1 0 -1.047195307179586
+  shape [
+    -5 -10
+    20 -10
+    0 25
+  ]
+  randomSeed 1
+  maxHeight 2
+  minHeight 1
+  maxRadius 1
+}
+Solid {
+  children [
+    Solid {
+      translation 0.6 0 5
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "MiddleRightSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -0.6 0 5
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "MiddleLeftSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+  ]
+  name "Middle"
+}
+Solid {
+  translation 0 0 -0.5
+  rotation 0 1 0 -1.5708003061004252
+  children [
+    Solid {
+      translation 0.6 0 5.7
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "LeftRightSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+  ]
+  name "Left"
+}
+Solid {
+  translation 0.6 0 -0.5
+  rotation 0 1 0 1.5707996938995747
+  children [
+    Solid {
+      translation 0.6 0 -0.61
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 21
+          }
+        }
+      ]
+      name "RgihtRightSide"
+      boundingObject Box {
+        size 0.2 0.1 21
+      }
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -0.6 0 5.1
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "RightLeftSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+  ]
+  name "Right"
+}
+Solid {
+  translation -5.24 0.02 -6.21
+  scale 10 10 10
+  children [
+    Shape {
+      appearance Grass {
+        textureTransform TextureTransform {
+          scale 10 10
+        }
+      }
+      geometry Plane {
+      }
+    }
+  ]
+  name "solid(1)"
+}
+Solid {
+  translation 4.74 0.02 -6.21
+  scale 10 10 10
+  children [
+    Shape {
+      appearance Grass {
+        textureTransform TextureTransform {
+          scale 10 10
+        }
+      }
+      geometry Plane {
+      }
+    }
+  ]
+  name "solid(3)"
+}
+Solid {
+  translation 5.7 0.02 5.21
+  scale 10 10 10
+  children [
+    Shape {
+      appearance Grass {
+        textureTransform TextureTransform {
+          scale 10 10
+        }
+      }
+      geometry Plane {
+      }
+    }
+  ]
+  name "solid(2)"
+}
+Solid {
+  translation -5.7 0.02 5.19
+  scale 10 10 10
+  children [
+    Shape {
+      appearance Grass {
+        textureTransform TextureTransform {
+          scale 10 10
+        }
+      }
+      geometry Plane {
+      }
+    }
+  ]
+  name "solid(4)"
+}
+StraightRoadSegment {
+  translation 0 0.01 0
+  name "northroad"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  rightBorder FALSE
+  leftBorder FALSE
+  rightBarrierBoundingObject FALSE
+  leftBarrierBoundingObject FALSE
+}
+DEF TEST TinkerbotsBase {
+  translation 0.2509383635381479 0.041155549962185116 4.865927181185916
+  rotation -0.9666508417754822 -0.048202906325954385 0.2515206351703238 0.00023633367278071883
+  name "babyPluto(1)"
+  controller "my_controller_test2"
+  controllerArgs [
+    ""
+  ]
+  upASlot TinkerbotsCubieBoxWithCrossSlots {
+    upSlot TinkerbotsCubieBoxWithRoundSlots {
+      translation 0.01 0 0
+      axisSlot TinkerbotsAxle {
+        translation 0 0 0.005
+        rotation 1 0 0 3.1415
+        endSlot TinkerbotsWheel {
+        }
+      }
+    }
+  }
+  leftSlot TinkerbotsCube {
+    upSlot TinkerbotsCube {
+      rightDSlot TinkerbotsCubieBoxWithCrossSlots {
+        upSlot TinkerbotsCubieBoxWithRoundSlots {
+          translation 0.01 0 0
+          axisSlot TinkerbotsAxle {
+            translation 0 0 0.005
+            rotation 1 0 0 3.1415
+            endSlot TinkerbotsWheel {
+            }
+          }
+        }
+      }
+    }
+    leftSlot TinkerbotsPivot {
+      rotation 0 0 1 1.5707996938995747
+      slot TinkerbotsCube {
+        leftSlot TinkerbotsDistanceSensor {
+          rotation 0 0 1 1.5707996938995747
+        }
+        frontSlot TinkerbotsCube {
+          name "(1)"
+          backSlot TinkerbotsMotor {
+            name "B1"
+            frontSlot TinkerbotsAxle {
+              endSlot TinkerbotsWheel {
+              }
+            }
+          }
+        }
+        backSlot TinkerbotsCube {
+          frontSlot TinkerbotsMotor {
+            name "A1"
+            backSlot TinkerbotsAxle {
+              endSlot TinkerbotsWheel {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  extensionSlot [
+    DistanceSensor {
+      translation 0.08 -0.02 -0.05
+      name "LT"
+      lookupTable [
+        0 0 0
+        0.9 0.9 0
+      ]
+    }
+    Accelerometer {
+    }
+    GPS {
+      translation 0.041 0.025 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.01
+          }
+        }
+      ]
+    }
+    Emitter {
+      translation 0.04 0.08 -0.08
+      rotation 0 0 1 3.141592653589793
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.05
+          }
+        }
+      ]
+      range 2
+      channel 1
+    }
+    Compass {
+      translation 0.04 0.04 -0.1
+      rotation 0 -1 0 1.5707996938995747
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Box {
+            size 0.015 0.005 0.005
+          }
+        }
+      ]
+    }
+    Receiver {
+      translation 0.04 0.11 -0.08
+      rotation -1 0 0 5.92017e-06
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.01
+          }
+        }
+      ]
+      channel 1
+    }
+  ]
+}
+StraightRoadSegment {
+  translation 0.5 0.01 -0.5
+  rotation 0 1 0 1.5707996938995747
+  name "eastroad"
+  id "east"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  rightBorder FALSE
+  leftBorder FALSE
+}
+StraightRoadSegment {
+  translation -0.5 0.01 -0.5
+  rotation 0 1 0 -1.5708003061004252
+  name "westroad"
+  id "west"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  rightBorder FALSE
+  leftBorder FALSE
+  rightBarrierBoundingObject FALSE
+  leftBarrierBoundingObject FALSE
+}
