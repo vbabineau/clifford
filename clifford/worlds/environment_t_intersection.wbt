@@ -4,8 +4,9 @@ WorldInfo {
 }
 Viewpoint {
   orientation 1 0 0 4.71238898038469
-  position 1.2286224677193114 9.019031631939137 5.813450884873268
-  follow "babyPluto"
+  position -7.977227500973111e-06 18.744698979104637 5.972390767217624e-06
+  follow "I3OT"
+  followType "None"
 }
 TexturedBackground {
 }
@@ -207,7 +208,7 @@ DEF Pivot_Design TinkerbotsBase {
     }
     Compass {
       translation 0.06 0.04 -0.09
-      rotation 6.98158e-08 1 -4.3994e-07 1.5708
+      rotation 0.7071067811865475 0 -0.7071067811865475 3.141592653589793
       children [
         Shape {
           appearance PBRAppearance {
@@ -327,7 +328,7 @@ DEF Pivot_Design TinkerbotsBase {
     }
     Compass {
       translation 0.04 0.03 -0.0999998
-      rotation 0 1 0 1.5707903061004251
+      rotation 0.7071087811831002 3.390488950803185e-09 -0.707104781184338 3.14159
       children [
         Shape {
           appearance PBRAppearance {
@@ -357,7 +358,7 @@ DEF Pivot_Design TinkerbotsBase {
 }
 DEF Pivot_Design TinkerbotsBase {
   translation 0.2509398205617708 0.04001153406213075 4.865934641052576
-  rotation -0.9563388037691255 -0.09001159148868386 0.2780539620345523 0.00012655381585312855
+  rotation 0 1 0 0
   name "babyPluto"
   controller "clifford_controller"
   controllerArgs [
@@ -450,7 +451,7 @@ DEF Pivot_Design TinkerbotsBase {
     }
     Compass {
       translation 0.04 0.04 -0.1
-      rotation 0 -1 0 1.5707996938995747
+      rotation -0.7071062811861719 -3.3905013482585576e-09 0.7071072811865696 -3.14159
       children [
         Shape {
           appearance PBRAppearance {
