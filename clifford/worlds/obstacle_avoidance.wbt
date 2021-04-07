@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.45845024047785804 0.880026045609844 0.12400619361183082 0.6614739268185502
-  position 2.807250245352111 1.6102114647818113 6.338526583303309
+  orientation -0.6053535779482854 0.7798288580672222 0.15941768343186158 0.651346621375772
+  position 1.967339222881873 1.6473481946771198 6.334310215469295
   follow "FiatPanda"
 }
 TexturedBackground {
@@ -180,7 +180,8 @@ StraightRoadSegment {
   leftBarrierBoundingObject FALSE
 }
 DEF OBSTACLE Solid {
-  translation 0.25 0.07 0
+  translation 0.212182 0.07 2.17444
+  rotation 0 1 0 0.785401
   children [
     Shape {
       appearance PBRAppearance {
@@ -380,18 +381,36 @@ DEF Pivot_Design TinkerbotsBase {
   extensionSlot [
     DistanceSensor {
       translation 0.08 0 -0.14
-      rotation 0 1 0 1.57
+      rotation 0 -1 0 -1.439105
       name "right_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
     }
     DistanceSensor {
       translation 0.04 0 -0.14
       rotation 0 1 0 1.57
       name "center_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
     }
     DistanceSensor {
       translation 0 0 -0.14
-      rotation 0 1 0 1.57
+      rotation 0 1 0 1.7009
       name "left_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
     }
     Accelerometer {
     }
