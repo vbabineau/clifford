@@ -3,8 +3,9 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.21622052777112635 0.9748467551969371 0.05406003378077467 5.7810606523463335
-  position -13.053764608728507 3.654022628283859 18.05316393745534
+  orientation 0.9967576267399895 0.07795330159121086 0.019937810980489867 5.780827486657388
+  position 0.34217614959420956 1.4821920695402127 6.1012288134190396
+  follow "FiatPanda"
 }
 TexturedBackground {
 }
@@ -279,7 +280,7 @@ DEF TEST TinkerbotsBase {
   translation 0.2509383635381479 0.041155549962185116 4.865927181185916
   rotation -0.9666508417754822 -0.048202906325954385 0.2515206351703238 0.00023633367278071883
   name "babyPluto(1)"
-  controller "my_controller_test2"
+  controller ""
   controllerArgs [
     ""
   ]
@@ -423,6 +424,187 @@ StraightRoadSegment {
   endingRoadBorderWidth 0.2
   rightBorder FALSE
   leftBorder FALSE
+}
+DEF Pivot_Design TinkerbotsBase {
+  translation 0.243854 0.0411534 4.24136
+  rotation 0 1 0 0
+  name "FiatPanda"
+  controller "obstacle_avoidance"
+  upASlot TinkerbotsCubieBoxWithCrossSlots {
+    upSlot TinkerbotsCubieBoxWithRoundSlots {
+      translation 0.01 0 0
+      axisSlot TinkerbotsAxle {
+        translation 0 0 0.005
+        rotation 1 0 0 3.1415
+        endSlot TinkerbotsWheel {
+        }
+      }
+    }
+  }
+  leftSlot TinkerbotsCube {
+    upSlot TinkerbotsCube {
+      rightDSlot TinkerbotsCubieBoxWithCrossSlots {
+        upSlot TinkerbotsCubieBoxWithRoundSlots {
+          translation 0.01 0 0
+          axisSlot TinkerbotsAxle {
+            translation 0 0 0.005
+            rotation 1 0 0 3.1415
+            endSlot TinkerbotsWheel {
+            }
+          }
+        }
+      }
+    }
+    leftSlot TinkerbotsPivot {
+      rotation 0 0 1 1.5707996938995747
+      slot TinkerbotsCube {
+        leftSlot TinkerbotsDistanceSensor {
+          rotation 0 0 1 1.5707996938995747
+        }
+        frontSlot TinkerbotsCube {
+          name "(1)"
+          backSlot TinkerbotsMotor {
+            name "B"
+            frontSlot TinkerbotsAxle {
+              endSlot TinkerbotsWheel {
+              }
+            }
+          }
+        }
+        backSlot TinkerbotsCube {
+          frontSlot TinkerbotsMotor {
+            name "A"
+            backSlot TinkerbotsAxle {
+              endSlot TinkerbotsWheel {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  extensionSlot [
+    DistanceSensor {
+      translation 0.08 0 -0.14
+      rotation 0 -1 0 -1.439105
+      name "right_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
+    }
+    DistanceSensor {
+      translation 0.08 -0.02 -0.05
+      name "lane_sensor"
+      lookupTable [
+        0 0 0
+        0.9 0.9 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.04 0 -0.14
+      rotation 0 1 0 1.57
+      name "center_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
+    }
+    DistanceSensor {
+      translation 0 0 -0.14
+      rotation 0 1 0 1.7009
+      name "left_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
+    }
+    Accelerometer {
+    }
+    GPS {
+      translation 0.041 0.025 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.01
+          }
+        }
+      ]
+    }
+    Emitter {
+      translation 0.04 0.08 -0.08
+      rotation 0 0 1 3.141592653589793
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.05
+          }
+        }
+      ]
+    }
+    Compass {
+      translation 0.05 0.03 -0.0999998
+      rotation 0 -1 0 1.5708
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Box {
+            size 0.015 0.005 0.005
+          }
+        }
+      ]
+    }
+    Receiver {
+      translation 0.04 0.11 -0.08
+      rotation -1 0 0 5.92017e-06
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.01
+          }
+        }
+      ]
+      channel 1
+    }
+  ]
+}
+Solid {
+  translation 0.350208 0.06 2.95583
+  rotation 0 1 0 -0.785395307179586
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.2 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.3 0.05 0.1
+      }
+    }
+  ]
+  name "obstacle"
+  boundingObject Box {
+    size 0.3 0.05 0.1
+  }
+  physics Physics {
+    mass 10
+  }
 }
 StraightRoadSegment {
   translation -0.5 0.01 -0.5
