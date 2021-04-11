@@ -1,4 +1,5 @@
 from vectors import Point, Vector
+from matplotlib import pyplot as plt
 import struct
 import numpy as np
 
@@ -22,18 +23,22 @@ def createPath(startP,endP,dirVect):
 def updatePath(startP,endP,dirVect,path):
     birdsEyePath = (Vector.from_points(startP,endP))
     birdsEyePath.y = 0
-    if birdsEyePath.angle(dirVect)%180 == 0:
+    try:
+        if birdsEyePath.angle(dirVect)%180 == 0:
+            path.pop(-1)
+            path.append(birdsEyePath)
+        else:
+            for v in path:
+                path.remove(v)
+                mag=v.magnitude()
+                pathVect = v.multiply(1/mag)
+                newV = pathVect.multiply(abs(birdsEyePath.dot(pathVect)))
+                if abs(round(newV.magnitude(),2))>.65:
+                    path.insert(0,newV)
+                    break
+    except ValueError:
         path.pop(-1)
         path.append(birdsEyePath)
-    else:
-        for v in path:
-            path.remove(v)
-            mag=v.magnitude()
-            pathVect = v.multiply(1/mag)
-            newV = pathVect.multiply(abs(birdsEyePath.dot(pathVect)))
-            if abs(round(newV.magnitude(),2))>.6:
-                path.insert(0,newV)
-                break
     return path
 
 def vecToSeg(startP, v):
@@ -42,41 +47,59 @@ def vecToSeg(startP, v):
 
     return [startP,endP]
 
-
-# Formulas taken from to check if segments intersect https://stackoverflow.com/questions/3838329/how-can-i-check-if-two-segments-intersect
-def ccw(A,B,C):
-    return (C.z-A.z) * (B.x-A.x) > (B.z-A.z) * (C.x-A.x)
-
 # Return true if line segments AB and CD intersect
 def intersect(A,B,C,D):
-    return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D)
+
+    maxX = min(max(A.x,B.x),max(C.x,D.x))
+    maxZ = min(max(A.z,B.z),max(C.z,D.z))
+    minX = max(min(A.x,B.x),min(C.x,D.x))
+    minZ = max(min(A.z,B.z),min(C.z,D.z))
+    if(minX==maxX and minZ==maxZ):
+        return[(round(minX,1),round(minZ,1)) ]#point touching
+    Ix=[minX,maxX]
+    Iz=[minZ,maxZ]
+
+    if (B.x-A.x)!=0 and (D.x-C.x)!=0:
+        slopeA = (B.z-A.z)/(B.x-A.x)
+        slopeC = (D.z-C.z)/(D.x-C.x)
+    elif(B.x-A.x)!=0:
+        slopeA = (B.z-A.z)/(B.x-A.x)
+        slopeC = None
+    elif(D.x-C.x)!=0:
+        slopeC = (D.z-C.z)/(D.x-C.x)
+        slopeA = None
+    else:
+        slopeA = None
+        slopeC = None
+
+    if slopeA == slopeC:
+        #parrallel  4r 
+        if slopeA==None and (max(A.z,B.z)>=min(C.z,D.z) or max(C.z,D.z)>=min(A.z,B.z)) and (A.x==C.x):
+            if (A.x,Iz[0])==(D.x,Iz[1]):
+                return [(A.x,max(min(A.z,B.z),min(C.z,D.z))),(A.x,max(max(A.z,B.z),max(C.z,D.z)))]
+            else:
+                return [(round(A.x,1),round(Iz[0],1)),(round(A.x,1),round(Iz[1],1))]
+        elif slopeA==0 and (A.z==C.z) and (max(A.x,B.x)>=min(C.x,D.x) or max(C.x,D.x)>=min(A.x,B.x)):
+            if (Ix[0],A.z)==(Ix[1],D.z):
+                return [(max(min(A.x,B.x),min(C.x,D.x)),A.x),(max(max(A.x,B.x),max(C.x,D.x)),A.z)]
+            else:
+                return [(round(Ix[0],1),round(A.z,1)),(round(Ix[1],1),round(A.z,1))]
+        else: #parrallel non-touching
+            return False
+    return False#not parralel not touching
+
+
 
 #https://gist.github.com/hellpanderrr/a6c30179f64bb1b13b85
-def seg_intersect(A,B,C,D) :
-    da = Vector(B.x-A.x,0,B.z-A.z)
-    db = Vector(D.x-C.x,0,D.z-C.z)
-    dp = Vector(B.x-D.x,0,B.z-D.z)
-    dap = Vector(-da.z,0,da.x)
-    denom = dap.dot(db)
-    num = dap.dot(dp)
-    ptoV= Vector(C.x,C.y,C.z)
-    print(db,da)
-    print(dap)
+def plot_intersect(A,B,C,D) :
+    arr = np.array([A.to_2dlist(),B.to_2dlist(),C.to_2dlist(),D.to_2dlist()])
+    plt.xlim(-6,6)
+    plt.ylim(6,-6)
 
-    if db.perpendicular(da):
-        x3 = (db.multiply(num / denom).sum(ptoV).x)
-        z3 = (db.multiply(num / denom).sum(ptoV).z)
-    elif da.parallel(db):
-        print("Collinear Path")
-        return False
-
-    p1 = [A.x,A.z,B.x,B.z]
-    p2 = [C.x,C.z,D.x,D.z]
-    if (min(p1[0],p1[2])<x3 and x3<max(p1[0],p1[2]) ) and( min(p1[1],p1[3]) < z3 and z3 <max(p1[1],p1[3])):
-        if(min(p2[0],p2[2])<x3 and x3<max(p2[0],p2[2]) ) and( min(p2[1],p2[3]) < z3 and z3 <max(p2[1],p2[3])):
-            return x3,z3
-    else:
-        return False
+    plt.plot(arr[:2,0],arr[:2,1])
+    plt.plot(arr[2:,0],arr[2:,1])
+    plt.pause(1)
+    plt.close()
 
 def unit_vector(vector):
     """ Returns the unit vector of the vector.  """
@@ -95,10 +118,10 @@ def angle_between(v1, v2):
     v1_u = unit_vector(v1)
     v2_u = unit_vector(v2)
     return np.arccos(np.clip(np.dot(v1_u, v2_u), -1.0, 1.0))
-if __name__ =="__main__":
-    start = Point(0.2919,0.0654,4.8651)  
-    end = Point(5.4, 0.0654, -0.25)
 
+if __name__ =="__main__":
+    start = Point(0.25,0.036,4.9)
+    end = Point(5.4,0.036,-.25)
     path=createPath(start,end,Vector.from_list([1,0,0]))
     print(path)
     up=(updatePath(start,end,Vector.from_list([1,-0.0,-0.0]),path))

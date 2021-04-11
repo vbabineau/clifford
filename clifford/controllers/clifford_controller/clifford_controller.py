@@ -52,7 +52,7 @@ emitter.setChannel(1)
 
 #Start and end Points
 startPoints = [Point(0.25,0.036,4.9),Point(5.4,0.036,-.75),Point(-5.4,0.036,-.75)]
-endPoints = [Point(-0.25,0.036,4.9),Point(5.4,0.036,-.25),Point(-5.4,0.036,-.25)]
+endPoints = [Point(-0.25,0.036,4.9),Point(5.4,0.036,-.25),Point(-5.4,0.036,-.75)]
 
 
 speed = ANGULAR_VELOCIY#*random.random() #Sets speed to a random fraction of the max
@@ -81,39 +81,49 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
     acceleration = acceler.getValues()
     dirList = np.round(comp.getValues(),2).tolist()
     dirVect = Vector.from_list(dirList)
-    coords = Point.from_list(gps.getValues())
+    coords = Point.from_list(np.round(gps.getValues(),2).tolist())
     destination.y=coords.y
     velocity = Vector(dirList[0]*speed,dirList[1]*speed,dirList[2]*speed)
 
     if ctr == 0: # first iteration we create a path
         try:
+            # print(coords,destination, dirVect)
             path = createPath(coords,destination, dirVect )
+            while len(path)<1:
+                destination = endPoints[random.randrange(0,2,1)]
+                path = createPath(coords,destination, dirVect)    
         except ValueError:
             endPoints.remove(destination)
             destination = endPoints[random.randrange(0,1,1)]
-            path = createPath(coords,destination, dirVect)    
-                 
+            path = createPath(coords,destination, dirVect)   
+            while len(path)<1:
+                destination = endPoints[random.randrange(0,1,1)]
+                path = createPath(coords,destination, dirVect)    
+        print(path)
     else:
         path = updatePath(coords,destination, dirVect,path)
     
     try:
         compensatedDir=Vector(-dirVect.x,dirVect.y,dirVect.z)
-
         pathCarAngle =angle_between(path[0].to_2dlist(),dirVect.to_2dlist())*180/math.pi
     except ValueError:
         
         pathCarAngle = 0
         pass
+    except IndexError:
+        rightMotor.setVelocity(0)
+        leftMotor.setVelocity(0)
+        break
 
     if round(dirVect.cross(path[0]).y,3)!=0  :
         ratio= (abs(90-(pathCarAngle))/90)
         
         if( round(dirVect.cross(path[0]).y,3)<0):
-            pivot.setPosition(-(0.34*(1-ratio**3)+.01))
+            pivot.setPosition(-(0.40*(1-ratio**3)+.01))
             rightMotor.setVelocity(speed)
             leftMotor.setVelocity((.55+.45*ratio)* speed)
         else:
-            pivot.setPosition((0.34*(1-ratio**3)+.01))
+            pivot.setPosition((0.40*(1-ratio**3)+.01))
             rightMotor.setVelocity((.55+.45*ratio)* speed)
             leftMotor.setVelocity(speed)
     else:
@@ -123,7 +133,7 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
      
     if ctr==0:
         dirVect = np.round(comp.getValues(),2).tolist()
-        print(f'Current dir: {dirVect},{round(pathCarAngle,2)} degrees, Updated Path:')
+        print(f'Going from {coords}to {destination}')
         for i,v in enumerate(path):
             print('Vector',i+1,v)
         print("----------------------")
@@ -140,13 +150,15 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
                 message+='_'
             else:
                 message+='|'
-        queue = carQueue(message)
+        if ctr ==0:
+            queue = carQueue(message)
+            print(message)
+        elif ctr%20 ==0:
+            queue.queueCar(message,update=True)
 
         message = bytes(message, 'utf-8')
         message =  struct.pack("I%ds" % (len(message),), len(message), message)
         emitter.send(message)
-        if ctr==1:
-            pass
 
     while receiv.getQueueLength() >0:
         data = receiv.getData()
@@ -161,7 +173,7 @@ while robot.step(TIME_STEP) != -1: #infinite loop cause TIME_STEP never changing
         
 
 
-
+    speed = round(queue.queue[robot.getName()]['speed'],2)
     ctr+=1
 
     pass
