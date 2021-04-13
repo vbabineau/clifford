@@ -33,6 +33,7 @@ sensorMax = 1000
 laneSensorMax = 0.9
 safeDistance = 50
 xAngle = 1
+trueNorth = 0
 
 # You should insert a getDevice-like function in order to get the instance of a device of the robot. Something like:
 left_sensor = robot.getDevice('left_sensor')
@@ -61,7 +62,7 @@ leftMotor.setVelocity(speed)
 rightMotor.setVelocity(speed)
 angle = 0
 ctr = 0
-
+laneMax = 0
 # Main loop:
 while robot.step(timestep) != -1:
     # Read the sensors:
@@ -71,6 +72,9 @@ while robot.step(timestep) != -1:
     laneVal = float(round(lane_sensor.getValue(),2))
     direction = compass.getValues()
     bearing = getBearingAngle(direction)
+    if ctr == 5:
+        trueNorth = getBearingAngle(direction)
+        laneMax = float(round(lane_sensor.getValue(),2))
     # Distance Sensor Values:
         # 1000: 0cm
         # 800:  12cm
@@ -98,27 +102,17 @@ while robot.step(timestep) != -1:
         angle += xAngle*(rightVal - leftVal) / (25 * sensorMax)
         #print("turning left")
     else:
-        # if ctr>5 and 3.13<bearing<3.17:
-        #     angle = 0
-        if ctr>5 and bearing < 3.15:
-            angle = -0.14*(abs(3.15-bearing))
-        elif ctr>5 and bearing > 3.15:
-            angle = 0.14*(abs(3.15-bearing))
-        # elif ctr>5 and 3.13<bearing<3.17:
-        #     angle = 0
-        #     #angle /= 1.5
+        if ctr>5 and bearing < trueNorth:
+            angle = -0.14*(abs(trueNorth-bearing))
+        elif ctr>5 and bearing > trueNorth:
+            angle = 0.14*(abs(trueNorth-bearing))
 
     if (ctr>5 and round(rightVal) == 0 and round(leftVal) == 0):
-        if 0.07 <= laneVal <= 0.35:
-            angle = angle
-            #print("correct distance")
-        elif laneVal < 0.06: #left
-            angle = 0.08*(1.75+abs(0.05-laneVal))
-            #angle += (laneVal)/(1 * laneSensorMax)
+        if laneVal < 0.06: #left
+            angle = 0.08*(1.25+abs(0.05-laneVal))
             #print("adjusting left")
-        elif laneVal > 0.36: #right
-            angle = -0.08*(1.75+abs(0.37-laneVal))
-            #angle -= (laneVal)/(1 * laneSensorMax)
+        elif laneVal > laneMax: #right
+            angle = -0.08*(1.25+abs((laneMax+0.01)-laneVal))
             #print("adjusting right")
 
     speed += speed*0.1
@@ -129,9 +123,7 @@ while robot.step(timestep) != -1:
     elif angle < -(0.25*xAngle):
         angle = -0.25*xAngle
     
-    # Enter here functions to send actuator commands, like: motor.setPosition(10.0)
-    leftMotor.setVelocity(speed)
-    rightMotor.setVelocity(speed)
+    # Enter here functions to send actuator commands
     avoidObstacle(angle,speed)
 
     print("Bearing in rad: %.2f" % bearing)

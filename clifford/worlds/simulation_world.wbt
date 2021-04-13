@@ -4,7 +4,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation 1 0 0 4.71238898038469
-  position 0.41010351882045215 6.1055104589338285 4.503166078114707
+  position -0.1881096952971033 26.882018097512685 1.3953984209818764
   follow "FiatPanda"
 }
 TexturedBackground {
@@ -57,12 +57,141 @@ Solid {
   }
 }
 Forest {
-  translation 1.1473 0 -15.252
+  translation 1.4 0 -14
   rotation 0 1 0 -1.047195307179586
-  density 0.4
+  shape [
+    -5 -10
+    20 -10
+    0 25
+  ]
   randomSeed 1
-  maxHeight 3
-  minHeight 4
+  maxHeight 2
+  minHeight 1
+  maxRadius 1
+}
+Solid {
+  children [
+    Solid {
+      translation 0.6 0 5
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "MiddleRightSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -0.6 0 5
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "MiddleLeftSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+  ]
+  name "Middle"
+}
+Solid {
+  translation 0 0 -0.5
+  rotation 0 1 0 -1.5708003061004252
+  children [
+    Solid {
+      translation 0.6 0 5.7
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "LeftRightSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+  ]
+  name "Left"
+}
+Solid {
+  translation 0.6 0 -0.5
+  rotation 0 1 0 1.5707996938995747
+  children [
+    Solid {
+      translation 0.6 0 -0.61
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 21
+          }
+        }
+      ]
+      name "RgihtRightSide"
+      boundingObject Box {
+        size 0.2 0.1 21
+      }
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -0.6 0 5.1
+      children [
+        Shape {
+          appearance Pavement {
+            textureTransform TextureTransform {
+              scale -2 5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 10
+          }
+        }
+      ]
+      name "RightLeftSide"
+      boundingObject Box {
+        size 0.2 0.1 10
+      }
+      physics Physics {
+      }
+    }
+  ]
+  name "Right"
 }
 Solid {
   translation -5.24 0.02 -6.21
@@ -142,6 +271,8 @@ StraightRoadSegment {
   roadBorderHeight 0.01
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
+  rightBorder FALSE
+  leftBorder FALSE
   rightBarrierBoundingObject FALSE
   leftBarrierBoundingObject FALSE
 }
@@ -160,53 +291,14 @@ StraightRoadSegment {
   roadBorderHeight 0.01
   startingRoadBorderWidth 0.2
   endingRoadBorderWidth 0.2
-}
-StraightRoadSegment {
-  translation -0.5 0.01 -0.5
-  rotation 0 1 0 -1.5708003061004252
-  name "westroad"
-  id "west"
-  width 1
-  lines [
-    RoadLine {
-      type "continuous"
-      width 0.05
-    }
-  ]
-  roadBorderHeight 0.01
-  startingRoadBorderWidth 0.2
-  endingRoadBorderWidth 0.2
-  rightBarrierBoundingObject FALSE
-  leftBarrierBoundingObject FALSE
-}
-DEF OBSTACLE Solid {
-  translation 0.212182 0.07 2.17444
-  rotation 0 1 0 0.785401
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0.2 0.1
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.3 0.1 0.1
-      }
-    }
-  ]
-  name "obstacle"
-  boundingObject Box {
-    size 0.3 0.1 0.1
-  }
-  physics Physics {
-    mass 10
-  }
+  rightBorder FALSE
+  leftBorder FALSE
 }
 DEF Pivot_Design TinkerbotsBase {
-  translation 5.1110040289321494 0.04115554961411555 -0.7505446650395751
-  rotation -8.46707187426085e-05 0.9999999860485657 0.00014399214514316418 1.5693395657541291
-  name "W-21"
-  controller ""
+  translation 0.243854 0.0411534 4.48136
+  rotation 0 1 0 0
+  name "FiatPanda"
+  controller "obstacle_avoidance"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
       translation 0.01 0 0
@@ -261,6 +353,47 @@ DEF Pivot_Design TinkerbotsBase {
     }
   }
   extensionSlot [
+    DistanceSensor {
+      translation 0.08 0 -0.14
+      rotation 0 -1 0 -1.439105
+      name "right_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
+    }
+    DistanceSensor {
+      translation 0.08 -0.02 -0.05
+      name "lane_sensor"
+      lookupTable [
+        0 0 0
+        0.9 0.9 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.04 0 -0.14
+      rotation 0 1 0 1.57
+      name "center_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
+    }
+    DistanceSensor {
+      translation 0 0 -0.14
+      rotation 0 1 0 1.7009
+      name "left_sensor"
+      lookupTable [
+        0 1023 0
+        0.6 0 0.04
+      ]
+      numberOfRays 3
+      aperture 0.1
+    }
     Accelerometer {
     }
     GPS {
@@ -279,20 +412,23 @@ DEF Pivot_Design TinkerbotsBase {
     Emitter {
       translation 0.04 0.08 -0.08
       rotation 0 0 1 3.141592653589793
+      scale 50 50 50
       children [
         Shape {
           appearance PBRAppearance {
+            baseColor 1 0 0
+            transparency 0.85
+            metalness 0
           }
-          geometry Cone {
-            bottomRadius 0.01
-            height 0.05
+          geometry Sphere {
+            radius 0.1
           }
         }
       ]
     }
     Compass {
-      translation 0.06 0.04 -0.09
-      rotation 6.98158e-08 1 -4.3994e-07 1.5708
+      translation 0.05 0.03 -0.0999998
+      rotation 0 -1 0 1.5708
       children [
         Shape {
           appearance PBRAppearance {
@@ -321,8 +457,8 @@ DEF Pivot_Design TinkerbotsBase {
   ]
 }
 DEF Pivot_Design TinkerbotsBase {
-  translation 0.243854 0.0411534 4.76136
-  rotation 0 1 0 0
+  translation 6.89385 0.0411534 -0.70866
+  rotation 0 1 0 1.5708
   name "FiatPanda(1)"
   controller "obstacle_avoidance"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
@@ -438,13 +574,16 @@ DEF Pivot_Design TinkerbotsBase {
     Emitter {
       translation 0.04 0.08 -0.08
       rotation 0 0 1 3.141592653589793
+      scale 50 50 50
       children [
         Shape {
           appearance PBRAppearance {
+            baseColor 1 1 0
+            transparency 0.85
+            metalness 0
           }
-          geometry Cone {
-            bottomRadius 0.01
-            height 0.05
+          geometry Sphere {
+            radius 0.1
           }
         }
       ]
@@ -480,9 +619,9 @@ DEF Pivot_Design TinkerbotsBase {
   ]
 }
 DEF Pivot_Design TinkerbotsBase {
-  translation 0.243854 0.0411534 3.56136
-  rotation 0 1 0 0
-  name "FiatPanda"
+  translation -10.0061 0.0411534 -0.24864
+  rotation 0 1 0 -1.5707953071795862
+  name "FiatPanda(2)"
   controller "obstacle_avoidance"
   upASlot TinkerbotsCubieBoxWithCrossSlots {
     upSlot TinkerbotsCubieBoxWithRoundSlots {
@@ -550,6 +689,14 @@ DEF Pivot_Design TinkerbotsBase {
       aperture 0.1
     }
     DistanceSensor {
+      translation 0.08 -0.02 -0.05
+      name "lane_sensor"
+      lookupTable [
+        0 0 0
+        0.9 0.9 0
+      ]
+    }
+    DistanceSensor {
       translation 0.04 0 -0.14
       rotation 0 1 0 1.57
       name "center_sensor"
@@ -589,13 +736,12 @@ DEF Pivot_Design TinkerbotsBase {
     Emitter {
       translation 0.04 0.08 -0.08
       rotation 0 0 1 3.141592653589793
-      scale 20 20 20
+      scale 50 50 50
       children [
         Shape {
           appearance PBRAppearance {
-            baseColor 1 0 0
-            transparency 0.9
-            roughness 1
+            baseColor 0 0 1
+            transparency 0.85
             metalness 0
           }
           geometry Sphere {
@@ -634,121 +780,45 @@ DEF Pivot_Design TinkerbotsBase {
     }
   ]
 }
-DEF Pivot_Design TinkerbotsBase {
-  translation -5.399306282863923 0.041155549612507315 -0.2500034306494652
-  rotation 0.00014378227770460686 0.9999999860891695 8.45477237041511e-05 -1.572255285568464
-  name "babyPluto"
-  controller ""
-  upASlot TinkerbotsCubieBoxWithCrossSlots {
-    upSlot TinkerbotsCubieBoxWithRoundSlots {
-      translation 0.01 0 0
-      axisSlot TinkerbotsAxle {
-        translation 0 0 0.005
-        rotation 1 0 0 3.1415
-        endSlot TinkerbotsWheel {
-        }
+Solid {
+  translation 0.300711 0.06 3.57092
+  rotation 0 1 0 -0.785395307179586
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.2 0
+        metalness 0
       }
-    }
-  }
-  leftSlot TinkerbotsCube {
-    upSlot TinkerbotsCube {
-      rightDSlot TinkerbotsCubieBoxWithCrossSlots {
-        upSlot TinkerbotsCubieBoxWithRoundSlots {
-          translation 0.01 0 0
-          axisSlot TinkerbotsAxle {
-            translation 0 0 0.005
-            rotation 1 0 0 3.1415
-            endSlot TinkerbotsWheel {
-            }
-          }
-        }
+      geometry Box {
+        size 0.3 0.05 0.1
       }
-    }
-    leftSlot TinkerbotsPivot {
-      rotation 0 0 1 1.5707996938995747
-      slot TinkerbotsCube {
-        leftSlot TinkerbotsDistanceSensor {
-          rotation 0 0 1 1.5707996938995747
-        }
-        frontSlot TinkerbotsCube {
-          name "(1)"
-          backSlot TinkerbotsMotor {
-            name "B"
-            frontSlot TinkerbotsAxle {
-              endSlot TinkerbotsWheel {
-              }
-            }
-          }
-        }
-        backSlot TinkerbotsCube {
-          frontSlot TinkerbotsMotor {
-            name "A"
-            backSlot TinkerbotsAxle {
-              endSlot TinkerbotsWheel {
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  extensionSlot [
-    Accelerometer {
-    }
-    GPS {
-      translation 0.041 0.025 0
-      children [
-        Shape {
-          appearance PBRAppearance {
-          }
-          geometry Cylinder {
-            height 0.01
-            radius 0.01
-          }
-        }
-      ]
-    }
-    Emitter {
-      translation 0.04 0.08 -0.08
-      rotation 0 0 1 3.141592653589793
-      children [
-        Shape {
-          appearance PBRAppearance {
-          }
-          geometry Cone {
-            bottomRadius 0.01
-            height 0.05
-          }
-        }
-      ]
-    }
-    Compass {
-      translation 0.06 0.04 -0.09
-      rotation 6.98158e-08 1 -4.3994e-07 1.5708
-      children [
-        Shape {
-          appearance PBRAppearance {
-          }
-          geometry Box {
-            size 0.015 0.005 0.005
-          }
-        }
-      ]
-    }
-    Receiver {
-      translation 0.04 0.11 -0.08
-      rotation -1 0 0 5.92017e-06
-      children [
-        Shape {
-          appearance PBRAppearance {
-          }
-          geometry Cone {
-            bottomRadius 0.01
-            height 0.01
-          }
-        }
-      ]
-      channel 1
     }
   ]
+  name "obstacle"
+  boundingObject Box {
+    size 0.3 0.05 0.1
+  }
+  physics Physics {
+    mass 10
+  }
+}
+StraightRoadSegment {
+  translation -0.5 0.01 -0.5
+  rotation 0 1 0 -1.5708003061004252
+  name "westroad"
+  id "west"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  rightBorder FALSE
+  leftBorder FALSE
+  rightBarrierBoundingObject FALSE
+  leftBarrierBoundingObject FALSE
 }
