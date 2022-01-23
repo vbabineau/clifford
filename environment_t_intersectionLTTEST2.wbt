@@ -1,0 +1,289 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.921515563757966 0.37717399326464734 0.09245996191129471 5.76319389966025
+  position -0.32621917402477985 3.3626476576466025 9.879350756979406
+  follow "babyPluto"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Crossroad {
+  translation -0.5 0.01 0
+  rotation 0 1 0 1.5707996938995747
+  id "crossbot"
+  shape [
+    1 0 0
+    0 0 1
+    1 0 1
+  ]
+  connectedRoadIDs [
+    "north,crosstop,east"
+  ]
+}
+Crossroad {
+  translation 0.5 0.01 -1
+  rotation 0 -1 0 1.5707996938995747
+  name "crossroad1"
+  id "crosstop"
+  shape [
+    1 0 0
+    0 0 1
+    1 0 1
+  ]
+  connectedRoadIDs [
+    "north,crossbot,east"
+  ]
+  boundingObject TRUE
+}
+Solid {
+  translation 0 0.015 0
+  children [
+    Shape {
+      appearance CementTiles {
+        textureTransform TextureTransform {
+          scale 100 100
+        }
+      }
+      geometry Plane {
+        size 100 100
+      }
+    }
+  ]
+  boundingObject Shape {
+    geometry Plane {
+      size 100 100
+    }
+  }
+}
+StraightRoadSegment {
+  translation 0 0.01 0
+  name "northroad"
+  id "north"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
+  locked FALSE
+  roadBoundingObject TRUE
+  rightBorderBoundingObject TRUE
+  leftBorderBoundingObject TRUE
+}
+StraightRoadSegment {
+  translation 0.5 0.01 -0.5
+  rotation 0 1 0 1.5707996938995747
+  name "eastroad"
+  id "east"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
+  locked FALSE
+  rightBorderBoundingObject TRUE
+  leftBorderBoundingObject TRUE
+}
+StraightRoadSegment {
+  translation -0.5 0.01 -0.5
+  rotation 0 1 0 -1.5708003061004252
+  name "westroad"
+  id "west"
+  width 1
+  lines [
+    RoadLine {
+      type "continuous"
+      width 0.05
+    }
+  ]
+  roadBorderHeight 0.01
+  startingRoadBorderWidth 0.2
+  endingRoadBorderWidth 0.2
+  length 5
+  roadBoundingObject TRUE
+  rightBorderBoundingObject TRUE
+  leftBorderBoundingObject TRUE
+  rightBarrierBoundingObject FALSE
+  leftBarrierBoundingObject FALSE
+}
+DEF Pivot_Design TinkerbotsBase {
+  translation 0.2509383630101343 0.04115554995998018 4.865927178972077
+  rotation -0.9666533050772533 -0.04814976732289716 0.25152134639026874 0.00023633308009652024
+  name "babyPluto"
+  controller "my_controller_test"
+  controllerArgs [
+    ""
+  ]
+  upASlot TinkerbotsCubieBoxWithCrossSlots {
+    upSlot TinkerbotsCubieBoxWithRoundSlots {
+      translation 0.01 0 0
+      axisSlot TinkerbotsAxle {
+        translation 0 0 0.005
+        rotation 1 0 0 3.1415
+        endSlot TinkerbotsWheel {
+        }
+      }
+    }
+  }
+  leftSlot TinkerbotsCube {
+    upSlot TinkerbotsCube {
+      rightDSlot TinkerbotsCubieBoxWithCrossSlots {
+        upSlot TinkerbotsCubieBoxWithRoundSlots {
+          translation 0.01 0 0
+          axisSlot TinkerbotsAxle {
+            translation 0 0 0.005
+            rotation 1 0 0 3.1415
+            endSlot TinkerbotsWheel {
+            }
+          }
+        }
+      }
+    }
+    leftSlot TinkerbotsPivot {
+      rotation 0 0 1 1.5707996938995747
+      slot TinkerbotsCube {
+        leftSlot TinkerbotsDistanceSensor {
+          rotation 0 0 1 1.5707996938995747
+        }
+        frontSlot TinkerbotsCube {
+          name "(1)"
+          backSlot TinkerbotsMotor {
+            name "B1"
+            frontSlot TinkerbotsAxle {
+              endSlot TinkerbotsWheel {
+              }
+            }
+          }
+        }
+        backSlot TinkerbotsCube {
+          frontSlot TinkerbotsMotor {
+            name "A1"
+            backSlot TinkerbotsAxle {
+              endSlot TinkerbotsWheel {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  extensionSlot [
+    DistanceSensor {
+      translation 0.08 -0.02 -0.05
+      name "LT"
+      lookupTable [
+        0 0 0
+        0.9 0.9 0
+      ]
+    }
+    Accelerometer {
+    }
+    GPS {
+      translation 0.041 0.025 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.01
+          }
+        }
+      ]
+    }
+    Emitter {
+      translation 0.04 0.08 -0.08
+      rotation 0 0 1 3.141592653589793
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.05
+          }
+        }
+      ]
+      range 2
+      channel 1
+    }
+    Compass {
+      translation 0.04 0.04 -0.1
+      rotation 0 -1 0 1.5707996938995747
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Box {
+            size 0.015 0.005 0.005
+          }
+        }
+      ]
+    }
+    Receiver {
+      translation 0.04 0.11 -0.08
+      rotation -1 0 0 5.92017e-06
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cone {
+            bottomRadius 0.01
+            height 0.01
+          }
+        }
+      ]
+      channel 1
+    }
+  ]
+}
+DEF Side-walk Solid {
+  translation 0.6 0.02 2.53
+  children [
+    Shape {
+      geometry Box {
+        size 0.2 0.01 5.1
+      }
+    }
+  ]
+  boundingObject Box {
+    size 0.2 0.01 5.1
+  }
+  physics Physics {
+  }
+}
+DEF Side-walk Solid {
+  translation 0.51 0.12 2.36
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Box {
+        size 0.2 0.25 3.5
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject Box {
+    size 0.2 0.25 3.5
+  }
+  physics Physics {
+  }
+}
